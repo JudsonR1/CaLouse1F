@@ -1,0 +1,63 @@
+CREATE DATABASE calouse1f;
+
+USE calouse1f;
+
+CREATE TABLE user (
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    username VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    phoneNumber VARCHAR(255) NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    role VARCHAR(6) NOT NULL
+);
+
+CREATE TABLE item (
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    userId INT NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    category VARCHAR(255) NOT NULL,
+    size VARCHAR(255) NOT NULL,
+    price VARCHAR(255) NOT NULL,
+    status VARCHAR(255) NOT NULL,
+    offer INT NOT NULL,
+    updatedBy INT NOT NULL,
+    CONSTRAINT `fk_item_userId`
+    FOREIGN KEY (userId)
+    REFERENCES user (id)
+);
+
+CREATE TABLE transaction (
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    userId INT NOT NULL,
+    itemId INT NOT NULL,
+    CONSTRAINT `fk_transaction_userId`
+    FOREIGN KEY (userId)
+    REFERENCES user (id),
+    CONSTRAINT `fk_transaction_itemId`
+    FOREIGN KEY (itemId)
+    REFERENCES item (id)
+);
+
+CREATE TABLE wishlist (
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    userId INT NOT NULL,
+    itemId INT NOT NULL,
+    CONSTRAINT `fk_wishlist_userId`
+    FOREIGN KEY (userId)
+    REFERENCES user (id),
+    CONSTRAINT `fk_wishlist_itemId`
+    FOREIGN KEY (itemId)
+    REFERENCES item (id)
+);
+
+INSERT INTO user (username, password, phoneNumber, address, role) VALUES ('buyer0', 'buyer0', '', '', 'Buyer');
+INSERT INTO user (username, password, phoneNumber, address, role) VALUES ('buyer1', 'buyer1', '', '', 'Buyer');
+INSERT INTO user (username, password, phoneNumber, address, role) VALUES ('seller0', 'seller0', '', '', 'Seller');
+INSERT INTO user (username, password, phoneNumber, address, role) VALUES ('seller1', 'seller1', '', '', 'Seller');
+
+INSERT INTO item (userId, name, category, size, price, status, offer, updatedBy) VALUES (3, 'Chino Pants', 'Pants', 'M', 300000, 'PENDING', 0, 0);
+INSERT INTO item (userId, name, category, size, price, status, offer, updatedBy) VALUES (3, 'Jeans', 'Pants', 'XL', 400000, 'PENDING', 0, 0);
+INSERT INTO item (userId, name, category, size, price, status, offer, updatedBy) VALUES (3, 'Nike Tech Fleece', 'Hoodie', 'M',700000, 'PENDING', 0, 0);
+INSERT INTO item (userId, name, category, size, price, status, offer, updatedBy) VALUES (4, 'Football Jersey', 'Sportswear', 'S', 600000, 'PENDING', 0, 0);
+INSERT INTO item (userId, name, category, size, price, status, offer, updatedBy) VALUES (4, 'Flannel Shirt', 'Button-Shirt', 'XS', 200000, 'PENDING', 0, 0);
+INSERT INTO item (userId, name, category, size, price, status, offer, updatedBy) VALUES (4, 'Plain Black T-Shirt', 'T-Shirt', 'M', 100000, 'PENDING', 0, 0);
